@@ -1,0 +1,100 @@
+<!doctype html>
+<html>
+<head>
+    <title>Casumo Books List</title>
+
+    <!--<link rel="stylesheet" href="../public/bootstrap/3.3.5/css/bootstrap.css"> -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
+    <!--<link rel="stylesheet" href="../public/css/font-awesome.min.css"> -->
+    <style>
+        body        { padding-top:80px; }
+    </style>
+
+    <link rel="stylesheet" type="text/css" href="http://w2ui.com/src/w2ui-1.4.2.min.css" />
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+    <script type="text/javascript" src="http://w2ui.com/src/w2ui-1.4.2.min.js"></script>
+
+</head>
+<body>
+<!--<div id="grid" style="width: 100%; height: 350px; overflow: hidden;"></div>
+
+<script type="text/javascript">
+    $(function () {
+        $('#grid').w2grid({
+            name: 'grid',
+            method: 'GET', // need this to avoid 412 error on Safari
+            columns: [
+                { field: 'name', caption: 'Last Name', size: '30%', sortable: true },
+                { field: 'author', caption: 'First Name', size: '30%', sortable: true },
+                { field: 'genre', caption: 'Email', size: '40%', sortable: true },
+                { field: 'publishDate', caption: 'Start Date', size: '120px', sortable: true },
+            ]
+        });
+        w2ui['grid'].load('../list.json');
+    });
+</script>-->
+<div class="container">
+<div id="main" style="width: 100%; height: 400px;"></div>
+<br>
+<label>
+    <input type="checkbox" id="autoLoad" onclick="refreshGrid(this.checked)" checked >
+    Auto Load
+</label>
+
+<script type="text/javascript">
+    // widget configuration
+    var config = {
+        grid: {
+            name: 'grid',
+            method: 'GET',
+            contentType: "application/json",
+            url : 'http://localhost:8080/api/books',
+            show: {
+                footer    : true,
+                toolbar    : true
+            },
+            /*multiSearch: false,
+            searches: [
+                { field: 'name', caption: 'Book Name', type: 'text' },
+                { field: 'genre', caption: 'Book Genre', type: 'text' },
+                { field: 'author', caption: 'Author Name', type: 'text' },
+            ],*/
+            columns: [
+                { field: 'index', caption: 'Idx', size: '50px', sortable: true, resizable: true },
+                { field: 'name', caption: 'Book Name', size: '140px', sortable: true, resizable: true },
+                { field: 'genre', caption: 'Book Genre', size: '140px', sortable: true, searchable: 'text', resizable: true },
+                { field: 'authorInfo.name', caption: 'Author Name', size: '140px', sortable: true, resizable: true },
+                { field: 'authorInfo.gender', caption: 'Author Gender', size: '140px', sortable: true, searchable: 'text', resizable: true },
+                { field: 'publishDate', caption: 'Publish Date', size: '100%', resizable: true, sortable: true },
+                /*{ field: 'manager', caption: 'Manager', size: '200px', resizable: true, sortable: true },*/
+            ]
+        }
+    }
+
+    function refreshGrid(auto) {
+        w2ui.grid.autoLoad = auto;
+        w2ui.grid.skip(0);
+    }
+
+    $(function () {
+        $('#main').w2grid(config.grid);
+        //w2ui.grid.refresh();
+        //$('#main').w2render('grid');
+    });
+</script>
+<!--<div class="container">
+
+    <div class="jumbotron text-center">
+        <h1><span class="fa fa-lock"></span> TrackMe Authentication</h1>
+
+        <p>Login or Register with:</p>
+
+        <a href="/login" class="btn btn-default"><span class="fa fa-user"></span> Local Login</a>
+        <a href="/signup" class="btn btn-default"><span class="fa fa-user"></span> Local Signup</a>
+    </div>
+
+</div>-->
+</div>
+</body>
+</html>

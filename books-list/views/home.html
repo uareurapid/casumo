@@ -1,0 +1,319 @@
+<!doctype html>
+
+<html lang="en" ng-app="trackme">
+<!-- ASSIGN OUR ANGULAR MODULE -->
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A layout example that shows off a responsive email layout.">
+
+    <title>Track.Me - The place to track the things you love!</title>
+
+    <!-- optionally install locally npm install purecss-->
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
+
+    <!-- tour-->
+    <link rel="stylesheet" href="css/hopscotch.min.css">
+
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="css/layouts/email-old-ie.css">
+    <![endif]-->
+    <!--[if gt IE 8]><!-->
+    <link rel="stylesheet" href="css/layouts/email.css">
+    <!--<![endif]-->
+
+    <link rel="stylesheet" href="bootstrap/3.3.5/css/bootstrap.css">
+    <link rel="stylesheet" href="css/trackme.css">
+
+
+    <!-- SPELLS -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script><!-- load jquery -->
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular.min.js"></script><!-- load angular -->
+
+    <!-- check this ONE TODO -->
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular-animate.min.js"></script>
+    <!-- use cookies-->
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular-cookies.min.js"></script>
+
+
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>-->
+    <script src="bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+    <!-- for the modal dialogs mainly -->
+    <!--<script src="js/ui-bootstrap-tpls-0.14.3.min.js"></script>-->
+
+    <!-- this should not be the way to include it, must come included from trackme-angular-core.js-->
+    <!--<script src="js/modules/welcome-dialog.js"></script>-->
+
+    <!-- my angular js core file -->
+    <script src="js/trackme-angular-core.js"></script>
+    <script src="js/modules/trackme-angular-device.js"></script>
+    <script src="js/modules/trackme-angular-trackable.js"></script>
+    <script src="js/modules/trackme-angular-profile.js"></script>
+    <script src="js/modules/trackme-angular-record.js"></script>
+
+
+    <script src='js/lodash.min.js'></script>
+    <script src='js/angular-simple-logger.min.js'></script>
+    <script src='js/angular-google-maps.min.js'></script>
+
+
+    <style>
+        /*html, body { height: 100%; margin: 0; padding: 0; }*/
+        /*#map-container                    {  height: 100%; width: 100%  }*/
+    </style>
+
+</head>
+<!-- SET THE CONTROLLER AND GET ALL DEVICES -->
+<body>
+<!-- BEGIN: Sticky Header -->
+<div id="header_container">
+    <div id="my_header">
+        Header Content
+    </div>
+</div>
+<div id="tour_content">
+    <p>Content goes here...</p>
+</div>
+<!-- END: Sticky Header -->
+<script src="js/hopscotch.js"></script>
+<script src="js/tour.js"></script> <!-- define and start your tour in this file -->
+
+<div id="layout" class="content pure-g" ng-controller="MapController">
+    <div id="nav" class="pure-u">
+
+        <div class="container min-300" ng-controller="TrackablesController">
+            <h2 class="h2_white_bold" id="my_panel_title">My Panel</h2>
+
+            <div class="panel-group min-300" id="accordion" ng-controller="DevicesController">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title" id="my_trackables">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">My Trackables ({{ trackables.length }})</a>
+                        </h4>
+                    </div>
+                    <div id="collapse1" class="panel-collapse collapse in">
+                        <div class="panel-body">
+
+                            <!-- trackables list -->
+
+                            <!-- trackables LIST -->
+                            <div id="trackables-list" class="row">
+                                <!--<div class="col-sm-4 col-sm-offset-4">-->
+                                <form role="form">
+
+                                    <label for="filter_by_trackable">Filter by trackable:</label>
+                                    <select id="filter_by_trackable" ng-model="selectedTrackable" ng-change="trackableChanged(selectedTrackable)" ng-options="trackable._id as trackable.name for trackable in trackables">
+                                        <option value="">Show all</option>
+                                    </select>
+                                    <!-- LOOP OVER THE trackables IN $scope.trackables -->
+                                    <!--<div class="checkbox" ng-repeat="trackable in trackables">
+                                        <label>{{ trackable.name }}</label>
+                                    </div>-->
+                                </form>
+                               <!-- </div>-->
+                            </div>
+                            <!-- end trackables list -->
+
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title" id="add_trackable">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Add New Trackable</a>
+                        </h4>
+                    </div>
+                    <div id="collapse2" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <!-- Form to create trackables -->
+                            <!-- FORM TO CREATE trackables -->
+                            <div class="trackable-form s">
+                               <!-- <div class="col-sm-8 col-sm-offset-2 text-center">-->
+                                    <form role="form">
+
+                                            <!-- BIND THIS VALUE TO formData.text IN ANGULAR -->
+                                                <label for="trackable_name">Name:</label>
+                                                <input id="trackable_name" type="text" class="form-control input-sm" placeholder="name" ng-model="formTrackablesData.name">
+
+                                                <label for="trackable-description">Description:</label>
+                                                <input id="trackable-description" type="text" class="form-control input-sm" placeholder="description" ng-model="formTrackablesData.description">
+
+                                                <label for="trackable-type">Type:</label>
+
+                                                    <select id="trackable-type" ng-init="formTrackablesData.type = formTrackablesData.typeOptions[0]"
+                                                            ng-model="formTrackablesData.type"
+                                                            ng-options="option for option in formTrackablesData.typeOptions">
+                                                    </select>
+
+                                                <!-- privacy options-->
+                                                <br/>
+                                                <label>Privacy:</label>
+                                                <div class="form-group">
+                                                    <label><input type="radio" ng-change="privacyChanged()" name="privacy" value="Private" ng-checked="true" ng-model="formTrackablesData.privacy">Private</label>
+                                                    <label><input type="radio" ng-change="privacyChanged()" name="privacy" value="Protected" ng-model="formTrackablesData.privacy">Protected</label>
+                                                    <label><input type="radio" ng-change="privacyChanged()" name="privacy" value="Public" ng-model="formTrackablesData.privacy">Public</label>
+                                                </div>
+                                                <!-- this is filled when the trackable is set to 'protected'-->
+                                                <!--<input name="trackable_unlockcode" id="trackable_unlockcode" type="hidden" size="20" value="" ng-model="formTrackablesData.unlockCode">-->
+                                                <br/>
+                                                <button type="submit" class="btn btn-primary btn-sm" ng-click="createTrackable()">Add trackable</button>
+                                    </form>
+                                <!--</div>-->
+                            </div>
+                            <!-- end form create devices -->
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title" id="my_devices">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">My Devices ({{ devices.length }})</a>
+                        </h4>
+                    </div>
+                    <div id="collapse3" class="panel-collapse collapse">
+                        <div class="panel-body">
+
+                            <!-- devices list -->
+
+                            <!-- DEVICES LIST -->
+                            <div id="devices-list" class="row">
+                               <!-- <div class="col-sm-4 col-sm-offset-4">-->
+                                <form role="form">
+
+                                    <!-- LOOP OVER THE TODOS IN $scope.todos -->
+                                   <!-- <div class="checkbox" ng-repeat="dev in devices">
+                                        <label>{{ dev.deviceId }}</label>
+                                    </div>-->
+                                    <label for="filter_by_device">Filter by device:</label>
+                                    <select id="filter_by_device" ng-model="selectedDevice" ng-change="deviceChanged(selectedDevice)" ng-options="device._id as device.deviceId for device in devices">
+                                        <option value="">Show all</option>
+                                    </select>
+
+                                </form>
+                                <!--</div>-->
+                            </div>
+                            <!-- end devices list -->
+
+
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title" id="add_device">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">Add new device</a>
+                        </h4>
+                    </div>
+                    <div id="collapse4" class="panel-collapse collapse">
+                        <div class="panel-body">
+
+                            <!-- Form to create devices -->
+                            <!-- FORM TO CREATE devices -->
+                            <div class="device-form s">
+
+                                    <form role="form">
+
+                                            <!-- BIND THIS VALUE TO formData.text IN ANGULAR -->
+                                            <label for="device_id">Device Id:</label>
+                                            <input id="device_id" type="text" class="form-control input-sm" placeholder="Identifier" ng-model="formData.deviceId">
+
+                                            <label for="device-description">Device description:</label>
+                                            <input id="device-description" type="text" class="form-control input-sm" placeholder="Description" ng-model="formData.deviceDescription">
+
+                                        <br/>
+                                        <!-- createDevice() WILL CREATE NEW devices -->
+                                        <button type="submit" class="btn btn-primary btn-sm" ng-click="createDevice()">Add device</button>
+                                    </form>
+
+                            </div>
+                            <!-- end form create devices -->
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title" id="my_account">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse5">My Account</a>
+                        </h4>
+                    </div>
+                    <div id="collapse5" class="panel-collapse collapse">
+                        <div class="panel-body">
+
+                            <!--<div ng-controller="GreetingController">
+                                {{ greeting2 }}
+                            </div>-->
+
+                            <div ng-controller="ProfileController">
+                                {{ userinfo.username }}
+                            </div>
+
+                            <a href="/logout">Logout</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title" id="my_settings">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse6">Settings</a>
+                        </h4>
+                    </div>
+                    <div id="collapse6" class="panel-collapse collapse">
+                        <div class="panel-body">
+
+                            <!-- modal code here-->
+                            <div ng-controller="RecordsController">
+                                <div class="checkbox" ng-repeat="rec in records">
+                                    <label>{{ rec.latitude }}</label>
+                                    <label>{{ rec.longitude }}</label>
+                                </div>
+                            </div>
+                            <!-- end modal -->
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+    <div id="main" class="pure-u-1"> <!--ng-controller="MapController"-->
+
+        <ui-gmap-google-map control="map.control" center='map.center' zoom='map.zoom' draggable="true" options="map.options" bounds="map.bounds">
+
+            <ui-gmap-markers models="mapMarkers" coords="'self'" icon="'icon'">
+
+            </ui-gmap-markers>
+<!--click="map2.onMarkerClick(m)"-->
+            <!--<ui-gmap-marker ng-repeat="m in mapMarkers" icon="'icon'" coords="m.coords"  idkey="m.id">
+                <ui-gmap-window show="true" ng-cloak>
+                    <p>
+                        Latitude: {{m.coords.latitude}}<br/>
+                        Longitude: {{m.coords.longitude}}<br/>
+                 
+                    </p>
+                </ui-gmap-window>
+            </ui-gmap-marker>-->
+
+            <ui-gmap-polyline ng-repeat="p in polylines" path="p.path" stroke="p.stroke" visible='p.visible'
+            geodesic='p.geodesic' fit="false" editable="p.editable" draggable="p.draggable" icons='p.icons'></ui-gmap-polyline>
+
+        </ui-gmap-google-map>
+
+    </div>
+</div>
+
+
+<!-- BEGIN: Sticky Footer -->
+<div id="footer_container">
+    <div id="my_footer">
+        Copyright @ 2015 PC Dreams Software
+    </div>
+</div>
+<!-- END: Sticky Footer -->
+</body>
+</html>
