@@ -19,7 +19,6 @@
   "dependencies": {
     "express": "^4.13.3",
     "async": "^1.5.2",
-    "angular": "1.4.0",
     "JSONStream": "1.1.1",
     "mongodb": "2.0.46",
     "mongoskin": "2.0.3",
@@ -29,20 +28,9 @@
     "method-override": "2.3.5",
     "crypto":"0.0.3",
     "node-uuid": "1.4.3",
-    "passport" : "~0.3.0",
-    "passport-local" : "~1.0.0",
-    "passport-facebook" : "~2.0.0",
-    "passport-twitter" : "~1.0.3",
-    "passport-google-oauth" : "~0.2.0",
     "express-session":"1.12.0",
-    "cookie-parser":"~1.4.0",
-    "connect-flash": "~0.1.1",
     "bcrypt-nodejs":"~0.0.3",
-    "ejs":"~2.3.4",
-    "angular-google-maps":"~2.2.1",
-    "nodemailer":"~1.8.0",
-    "jsonwebtoken":"~5.4.1",
-    "hopscotch": "~0.2.5"
+    "ejs":"~2.3.4"
 
   }
 }
