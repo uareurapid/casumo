@@ -1,0 +1,32 @@
+#HOW to install and run the app
+
+#clone the source code from the repository
+git clone https://github.com/uareurapid/casumo.git
+
+#install node js and npm (node package manager) from https://nodejs.org/en/
+#on mac osx you could run brew (or use any specific installer)
+brew install node
+
+#install nodemon (http://nodemon.io) using npm package manager
+npm install -g nodemon
+
+
+#HOWTO install the modules
+#go to the app dir
+cd <PATH_TO_CASUMO_PROJECT_DIR>/books-list/
+
+#run npm install to install the required modules
+npm install
+
+#start the db on a terminal
+mongod -dbpath <PATH_TO_CASUMO_PROJECT_DIR>/books-list/data/db
+
+#start the app on another terminal
+cd <PATH_TO_CASUMO_PROJECT_DIR>/books-list/
+
+#run nodemon server/app.js
+nodemon server/app.js
+
+#the first time the app runs it will generate a million records (with debug output to the console)
+#so it could take 1 min or 2
+
