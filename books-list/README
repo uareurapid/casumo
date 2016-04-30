@@ -1,4 +1,5 @@
 #EXAMPLE BOOKS LIST APP (with 1 million records loaded from remote server - REST Json API) 
+#Built with NodeJS -> ExpressJS -> MongoDB -> EJS
 #HOW to install and run the app
 
 #clone the source code from the repository
