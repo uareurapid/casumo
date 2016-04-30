@@ -32,3 +32,5 @@ nodemon server/app.js
 #the first time the app runs it will generate a million records (with debug output to the console)
 #so it could take 1 min or 2
 
+#open the app on a browser at http://localhost:8080
+#have fun!
