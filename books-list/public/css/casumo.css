@@ -1,0 +1,11 @@
+/* Make Header Sticky */
+#header_container { background:#eee; border:1px solid #666; height:60px; left:0; position:fixed; width:100%; top:0; }
+#my_header{ line-height:60px; margin:0 auto; width:940px; text-align:center; font-family: arial, sans-serif; font-size: 4rem}
+
+body {
+    margin: 0 auto;
+}
+.container {
+    position: absolute;
+    top: 0;
+}

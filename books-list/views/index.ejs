@@ -1,12 +1,13 @@
 <!doctype html>
-<html>
+<html xmlns="http://www.w3.org/1999/html">
 <head>
     <title>Casumo Books List</title>
 
-    <!--<link rel="stylesheet" href="../public/bootstrap/3.3.5/css/bootstrap.css"> -->
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
-    <!--<link rel="stylesheet" href="../public/css/font-awesome.min.css"> -->
+    <!--<link rel="stylesheet" href="../bootstrap/3.3.5/css/bootstrap.css">-->
+    <!--<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">--> <!-- load bootstrap css -->
+    <!--<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">--> <!-- load fontawesome -->
+    <!--<link rel="stylesheet" href="../css/font-awesome.min.css">-->
+    <link rel="stylesheet" href="../css/trackme.css">
     <style>
         body        { padding-top:80px; }
     </style>
@@ -17,24 +18,41 @@
 
 </head>
 <body>
-<!--<div id="grid" style="width: 100%; height: 350px; overflow: hidden;"></div>
 
-<script type="text/javascript">
-    $(function () {
-        $('#grid').w2grid({
-            name: 'grid',
-            method: 'GET', // need this to avoid 412 error on Safari
-            columns: [
-                { field: 'name', caption: 'Last Name', size: '30%', sortable: true },
-                { field: 'author', caption: 'First Name', size: '30%', sortable: true },
-                { field: 'genre', caption: 'Email', size: '40%', sortable: true },
-                { field: 'publishDate', caption: 'Start Date', size: '120px', sortable: true },
-            ]
-        });
-        w2ui['grid'].load('../list.json');
-    });
-</script>-->
 <div class="container">
+    <p id="header-container"><span id="my_header">Casumo Books List</span></p>
+    <table>
+    <thead>
+        <tr>
+            <th>What´s implemented?</th>
+            <th>What´s not implemented?</th>
+        </tr>
+    </thead>
+        <tbody>
+        <tr>
+            <td>
+                <ul>
+                    <li>List with 1 million books (load + items on scroll)</li>
+                    <li>Sort by all Fields (on column header)</li>
+                    <li>Filter/Search by Book Genre (open <em>Search...</em>)</li>
+                    <li>Filter/Search by Author Gender (open <em>search...</em>)</li>
+                    <li>Simple REST API</li>
+                </ul>
+            </td>
+            <td>
+                <ul>
+                    <li>Search on all fields</li>
+                    <li>Filter/Sort by Book Genre and Author Gender at the same time</li>
+                    <li>Indicate books in the "finance" genre, published on the last Friday of any month</li>
+                    <li>Indicate books in the "horror" genre, published on Halloween</li>
+                </ul>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <em><strong>Notes about search:</strong></em> The advanced search has some extra keywords ("is","begins","contains","ends").</br>
+    These are not meaningful for the current implementation.<br/>
+
 <div id="main" style="width: 100%; height: 400px;"></div>
 <br>
 <label>
@@ -54,12 +72,6 @@
                 footer    : true,
                 toolbar    : true
             },
-            /*multiSearch: false,
-            searches: [
-                { field: 'name', caption: 'Book Name', type: 'text' },
-                { field: 'genre', caption: 'Book Genre', type: 'text' },
-                { field: 'author', caption: 'Author Name', type: 'text' },
-            ],*/
             columns: [
                 { field: 'index', caption: 'Idx', size: '50px', sortable: true, resizable: true },
                 { field: 'name', caption: 'Book Name', size: '140px', sortable: true, resizable: true },
